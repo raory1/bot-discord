@@ -42,13 +42,9 @@ client.on(Events.InteractionCreate, async interaction =>{
         return
     }
 
-    else if (interaction.type === InteractionType.ModalSubmit){
-        console.log('Modal teste')
-
-    }
-
     try {
         await command.execute(interaction)
+        console.log(interaction)
     }
     catch (error){
         console.error(error)
