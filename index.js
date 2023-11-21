@@ -11,7 +11,7 @@ const path = require("node:path")
 const commandsPath = path.join(__dirname, "commands")
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"))
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] })
 client.commands = new Collection()
 
 for (const file of commandFiles){
@@ -24,8 +24,6 @@ for (const file of commandFiles){
         console.log(`This command in ${filePath} has no "data" nor "execute"`)
     }
 }
-
-console.log(client.commands)
 
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
@@ -44,7 +42,6 @@ client.on(Events.InteractionCreate, async interaction =>{
 
     try {
         await command.execute(interaction)
-        console.log(interaction)
     }
     catch (error){
         console.error(error)
