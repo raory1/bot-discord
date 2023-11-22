@@ -25,26 +25,17 @@ for (const file of commandFiles){
     }
 }
 
-client.once(Events.ClientReady, c => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
-});
+const eventsPath = path.join(__dirname, "events");
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
 client.login(TOKEN);
-
-// Interactions listener
-client.on(Events.InteractionCreate, async interaction =>{
-    if (!interaction.isChatInputCommand()) return
-    const command = interaction.client.commands.get(interaction.commandName)
-    
-    if (!command) {
-        console.error("Comando não encontrado")
-        return
-    }
-
-    try {
-        await command.execute(interaction)
-    }
-    catch (error){
-        console.error(error)
-        await interaction.reply("Houve um erro ao executar este comando!")
-    }
-})

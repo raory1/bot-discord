@@ -5,6 +5,11 @@ module.exports = {
         .setName("registrar")
         .setDescription("Gera um formulário em Modal."),
 
+
+
+
+
+        
     async execute(interaction){
         try{
 
@@ -60,6 +65,7 @@ module.exports = {
                     { name: 'Idade:', value: `${ageValue}`}
                 )
             interaction.member.setNickname(`${nameValue} | ${idValue}`)
+            
             modalInteraction.reply({embeds: [exampleEmbed]})
             
         })
