@@ -3,12 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, Events, ModalBuilde
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("registrar")
-        .setDescription("Gera um formulário em Modal."),
-
-
-
-
-
+        .setDescription("Abre um formulário de registro."),
         
     async execute(interaction){
         try{
@@ -56,7 +51,7 @@ module.exports = {
                 .setColor(0x960202)
                 .setTitle("Novo formulário registrado!")
                 .setDescription(`✅ <@${interaction.user.id}> acabou de se registrar!`)
-                .setThumbnail(interaction.user.avatarURL({ dynamic: true, format: 'png', size: 1024 }))
+                .setThumbnail('https://i.imgur.com/l4gtEqf.jpeg')
                 .addFields(
                     { name: '\u200B', value: '\u200B' },
                     { name: 'Nome completo:', value: `${nameValue}`},
@@ -66,8 +61,13 @@ module.exports = {
                 )
             interaction.member.setNickname(`${nameValue} | ${idValue}`)
             
-            modalInteraction.reply({embeds: [exampleEmbed]})
-            
+            const channel = interaction.guild.channels.cache.get('1176614338388303924'); // configurar dinamicamente esse canal
+            if (channel) {
+                channel.send({ content: `<@${interaction.user.id}>`, embeds: [exampleEmbed] });
+            } else {
+                console.log('Canal não encontrado.');
+            }
+            modalInteraction.reply({ content: `***<@${interaction.user.id}>, você foi registrado(a) com sucesso!***`});
         })
         .catch((err) => {
             console.log('Erro');
