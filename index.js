@@ -4,7 +4,6 @@ const { Client, Events, GatewayIntentBits, Collection, InteractionType } = requi
 const dotenv = require('dotenv')
 dotenv.config()
 const { TOKEN } = process.env
-const db = require('./database/inventory.js')
 
 // import dos comandos
 const fs = require("node:fs")
