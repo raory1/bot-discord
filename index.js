@@ -4,6 +4,7 @@ const { Client, Events, GatewayIntentBits, Collection, InteractionType } = requi
 const dotenv = require('dotenv')
 dotenv.config()
 const { TOKEN } = process.env
+const db = require('./database/inventory.js')
 
 // import dos comandos
 const fs = require("node:fs")
@@ -25,6 +26,7 @@ for (const file of commandFiles){
     }
 }
 
+// import dos eventos
 const eventsPath = path.join(__dirname, "events");
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
