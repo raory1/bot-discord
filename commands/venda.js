@@ -13,7 +13,6 @@ module.exports = {
         }
         
         try{
-
             const modal = new ModalBuilder()
             .setCustomId('ModalVendas')
             .setTitle('Registro de Venda');
@@ -58,7 +57,7 @@ module.exports = {
                 modalInteraction.reply({content: `<@${interaction.user.id}> acabou de fazer uma venda!`,embeds: [exampleEmbed]})
             })
             .catch((err) => {
-                console.log('Erro');
+                console.log('Erro na submissao');
             });
         
         } catch (error) {
